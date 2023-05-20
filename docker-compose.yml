@@ -221,21 +221,21 @@ services:
         limits:
           memory: 200m
  
-  kafkamanager:
-    image: fjardim/kafkamanager
-    container_name: kafkamanager
-    hostname: kafkamanager
-    environment: 
-      ZK_HOSTS: zookeeper:2181
-    ports:
-      - 9000:9000
-    depends_on:
-      - kafka
-    deploy:
-      resources:
-        limits:
-          memory: 200m
- 
+#  kafkamanager:
+#    image: fjardim/kafkamanager
+#    container_name: kafkamanager
+#    hostname: kafkamanager
+#    environment: 
+#      ZK_HOSTS: zookeeper:2181
+#    ports:
+#      - 9000:9000
+#    depends_on:
+#      - kafka
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 200m
+# 
   metabase:
     image: fjardim/metabase
     container_name: metabase
