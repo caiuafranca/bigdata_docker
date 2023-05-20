@@ -90,74 +90,74 @@ services:
         limits:
           memory: 500m
 
-  hue:
-    image: fjardim/hue
-    hostname: hue
-    container_name: hue
-    dns: 8.8.8.8
-    ports:
-    - "8888:8888"
-    volumes:
-      - ./data/hue/hue-overrides.ini:/usr/share/hue/desktop/conf/z-hue.ini
-    depends_on:
-      - "database"
-    deploy:
-      resources:
-        limits:
-          memory: 500m
-  
-  database:
-    image: fjardim/mysql
-    container_name: database
-    hostname: database
-    ports:
-        - "33061:3306"
-    deploy:
-      resources:
-        limits:
-          memory: 500m
-    command: mysqld --innodb-flush-method=O_DSYNC --innodb-use-native-aio=OFF --init-file /data/application/init.sql
-    volumes:
-        - ./data/mysql/data:/var/lib/mysql
-        - ./data/init.sql:/data/application/init.sql
-    environment:
-        MYSQL_ROOT_USER: root
-        MYSQL_ROOT_PASSWORD: secret
-        MYSQL_DATABASE: hue
-        MYSQL_USER: root
-        MYSQL_PASSWORD: secret
-
-  zookeeper:
-    image: fjardim/zookeeper
-    container_name: zookeeper
-    hostname: zookeeper
-    ports:
-      - "2181:2181"
-    volumes:
-      - ./data/zookeeper:/opt/zookeeper-3.4.6/data
-    deploy:
-      resources:
-        limits:
-          memory: 500m
-
-  kafka:
-    image: fjardim/kafka
-    container_name: kafka
-    hostname: kafka
-    ports:
-      - "9092:9092"
-    #volumes:
-    #  - ./data/kafka:/kafka/kafka-logs-kafka
-    depends_on:
-      - zookeeper
-    environment:
-      KAFKA_ADVERTISED_HOST_NAME: kafka
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    deploy:
-      resources:
-        limits:
-          memory: 500m
-
+#  hue:
+#    image: fjardim/hue
+#    hostname: hue
+#    container_name: hue
+#    dns: 8.8.8.8
+#    ports:
+#    - "8888:8888"
+#    volumes:
+#      - ./data/hue/hue-overrides.ini:/usr/share/hue/desktop/conf/z-hue.ini
+#    depends_on:
+#      - "database"
+#    deploy:
+##      resources:
+##        limits:
+##          memory: 500m
+#  
+#  database:
+#    image: fjardim/mysql
+#    container_name: database
+#    hostname: database
+#    ports:
+#        - "33061:3306"
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 500m
+#    command: mysqld --innodb-flush-method=O_DSYNC --innodb-use-native-aio=OFF --init-file /data/application/init.sql
+#    volumes:
+#        - ./data/mysql/data:/var/lib/mysql
+#        - ./data/init.sql:/data/application/init.sql
+#    environment:
+#        MYSQL_ROOT_USER: root
+#        MYSQL_ROOT_PASSWORD: secret
+#        MYSQL_DATABASE: hue
+#        MYSQL_USER: root
+#        MYSQL_PASSWORD: secret
+#
+#  zookeeper:
+#    image: fjardim/zookeeper
+#    container_name: zookeeper
+#    hostname: zookeeper
+#    ports:
+#      - "2181:2181"
+#    volumes:
+#      - ./data/zookeeper:/opt/zookeeper-3.4.6/data
+#    deploy:
+##      resources:
+##        limits:
+##          memory: 500m
+##
+#  kafka:
+#    image: fjardim/kafka
+#    container_name: kafka
+#    hostname: kafka
+#    ports:
+#      - "9092:9092"
+#    #volumes:
+#    #  - ./data/kafka:/kafka/kafka-logs-kafka
+#    depends_on:
+#      - zookeeper
+#    environment:
+#      KAFKA_ADVERTISED_HOST_NAME: kafka
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 500m
+#
   presto-coordinator:
     image: fjardim/prestodb
     container_name: presto
